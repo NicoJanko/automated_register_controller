@@ -45,7 +45,7 @@ entity axi_static_register_controller is
     axi_register_mic_data_r_fifo_empty: in std_logic;
 
     -- c: write write/read register
-    axi_register_ctrl_wr   : in std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+    axi_register_ctrl_wr   : in std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0)
 
     
   );

@@ -133,6 +133,7 @@ def write_controller(regs_list:list):
     template_file = "templates/template_axi_static_register_controller.vhd"
     ip_file = "axi_static_register_controller/axi_register_controller.vhd"
     any_fifo = False
+    
     for reg in regs_list:
         any_fifo = any_fifo | reg.fifo
 
@@ -156,14 +157,14 @@ def write_controller(regs_list:list):
 
 
                 case "-- c: write write/read register":
-                    for reg in regs_list:
+                    for n,reg in enumerate(regs_list):
                         if reg.access == 'WR':
-                                new_line = f'    axi_register_{reg.name.lower()}   : in std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);\n'
+                                if n != (len(regs_list) -1):
+                                    new_line = f'    axi_register_{reg.name.lower()}   : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);\n'
+                                else: #do not write ; for the last port
+                                    new_line = f'    axi_register_{reg.name.lower()}   : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0)\n'
+
                                 file.write(new_line)
-                                if reg.fifo:
-                                    new_line = f'''    axi_register_{reg.name.lower()}_fifo_read: out std_logic;
-    axi_register_{reg.name.lower()}_fifo_empty: in std_logic;\n'''
-                                    file.write(new_line)
 
 
                 case "-- c: write internal buffer":
