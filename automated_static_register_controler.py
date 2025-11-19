@@ -108,7 +108,7 @@ def load_registers_from_excel(path,sheet="registers"):
 
 
 def write_constant(regs_list:list):
-    template_file = "templates/template_axi_static_register_controller.vhd"
+    template_file = "templates/template_axi_static_register_controller_constant.vhd"
     ip_file = "axi_static_register_controller/axi_register_controller_constant.vhd"
     with open(template_file, "r") as template, open(ip_file,"w") as file:
         for line in template:
